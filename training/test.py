@@ -1,4 +1,9 @@
 import argparse
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from training.load_data import load_EOD_data
 import torch
 from HGAM.models import HGAM
@@ -6,6 +11,7 @@ from HGAM.Optim import ScheduledOptim
 from training.test_tool import prepare_dataloaders, train
 import torch.optim as optim
 import os
+
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
@@ -15,9 +21,9 @@ def main():
 
     parser.add_argument('-length', default=20,
                         help='length of historical sequence for feature')
-    parser.add_argument('-train_index', type=int, default=1361)  # 0.8
-    parser.add_argument('-valid_index', type=int, default=1531)  # 0.2
-    parser.add_argument('-feature', default=10, help='input_size')
+    parser.add_argument('-train_index', type=int, default=320)  # 0.8
+    parser.add_argument('-valid_index', type=int, default=360)  # 0.2
+    parser.add_argument('-feature', default=4, help='input_size')
     parser.add_argument('-epoch', type=int, default=600)
     parser.add_argument('-batch_size', type=int, default=32)
     parser.add_argument('--rnn_unit', type=int, default=32, help='Number of hidden units.')
