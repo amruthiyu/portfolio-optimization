@@ -23,11 +23,11 @@ def main():
 
     parser.add_argument('-length', default=20,
                         help='length of historical sequence for feature')
-    parser.add_argument('-train_index', type=int, default=320)
-    parser.add_argument('-valid_index', type=int, default=360)
+    parser.add_argument('-train_index', type=int, default=280)
+    parser.add_argument('-valid_index', type=int, default=310)
     parser.add_argument('-feature', default=4, help='input_size')
     parser.add_argument('-epoch', type=int, default=600)
-    parser.add_argument('-batch_size', type=int, default=32)
+    parser.add_argument('-batch_size', type=int, default=16)
     parser.add_argument('--rnn_unit', type=int, default=32, help='Number of hidden units.')
     parser.add_argument('--hidden', type=int, default=16, help='Number of hidden units.')
     parser.add_argument('-dropout', type=float, default=0.5)
