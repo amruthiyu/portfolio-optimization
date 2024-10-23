@@ -23,9 +23,9 @@ def main():
 
     parser.add_argument('-length', default=20,
                         help='length of historical sequence for feature')
-    parser.add_argument('-train_index', type=int, default=1361)
-    parser.add_argument('-valid_index', type=int, default=1531)
-    parser.add_argument('-feature', default=10, help='input_size')
+    parser.add_argument('-train_index', type=int, default=320)
+    parser.add_argument('-valid_index', type=int, default=360)
+    parser.add_argument('-feature', default=4, help='input_size')
     parser.add_argument('-epoch', type=int, default=600)
     parser.add_argument('-batch_size', type=int, default=32)
     parser.add_argument('--rnn_unit', type=int, default=32, help='Number of hidden units.')
@@ -45,6 +45,8 @@ def main():
     args.cuda = not args.no_cuda
 
     eod_data, ground_truth = load_EOD_data()
+    # print("Shape of eod_data:", eod_data.shape)
+    # print("Shape of ground_truth:", ground_truth.shape)
     train_loader, valid_loader = prepare_dataloaders(eod_data, ground_truth, args)
     
     # ========= Preparing Model =========#

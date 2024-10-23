@@ -80,6 +80,15 @@ def train(model, training_data, validation_data, optimizer, device, args):
     ''' Start training '''
 
     if args.log:
+        
+        # Get the directory from the log file path
+        log_dir = os.path.dirname(args.log)
+
+        # Check if the directory exists, if not, create it
+        if not os.path.exists(log_dir):
+            os.makedirs(log_dir)
+            print(f'[Info] Created directory: {log_dir}')
+        
         log_train_file = args.log + '.train.log'
         log_valid_file = args.log + '.valid.log'
 
@@ -168,12 +177,21 @@ def prepare_dataloaders(eod_data, gt_data, args):
     valid_eod, valid_gt = EOD[args.train_index:args.valid_index], GT[args.train_index:args.valid_index]
     test_eod, test_gt = EOD[args.valid_index:], GT[args.valid_index:]
     
-    # print(train_eod[:5])  # To see the first 5 batches
+    # print(train_gt[:5])  # To see the first 5 batches
     # print(valid_eod[:5])
     # print(test_eod[:5])
+    
 
-    train_eod, valid_eod, test_eod = torch.FloatTensor(train_eod), torch.FloatTensor(valid_eod), torch.FloatTensor(test_eod)
-    train_gt, valid_gt, test_gt = torch.FloatTensor(train_gt), torch.FloatTensor(valid_gt), torch.FloatTensor(test_gt)
+    train_eod = torch.FloatTensor(np.array(train_eod))
+    valid_eod = torch.FloatTensor(np.array(valid_eod))
+    test_eod = torch.FloatTensor(np.array(test_eod))
+
+    train_gt = torch.FloatTensor(np.array(train_gt))
+    valid_gt = torch.FloatTensor(np.array(valid_gt))
+    test_gt = torch.FloatTensor(np.array(test_gt))
+    
+    # print(train_gt.shape, valid_gt.shape, test_gt.shape)
+    
     train_gt, valid_gt, test_gt = train_gt.unsqueeze(2), valid_gt.unsqueeze(2), test_gt.unsqueeze(2)
 
 
